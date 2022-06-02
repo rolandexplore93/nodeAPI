@@ -15,5 +15,5 @@ module.exports = {
                 return cb(err)
             })
     },
-    getDb: () => dbConnection // return the database collection recieved from the database
+    getDb: () => dbConnection // return the database collection received from the database
 }
