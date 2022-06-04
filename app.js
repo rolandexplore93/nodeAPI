@@ -18,10 +18,17 @@ connectToDb((err) => {
 // routes
 app.get('/books', (req, res) => {
     let books = []
-
+    // Pagination implementation: (a) create a query string from req
+    // Pagination implementation: (b) indicate the number of pages to be sent back
+    // Pagination implementation: (c) use skip(page x booksPerPage) and limit() 
+    const page = req.query.pages || 0;   // if req query parameter pages is not defined, use 0 as default page
+    const booksPerPage = 3;
+    
     db.collection('books')
     .find()
     .sort({author: 1})
+    .skip(page * booksPerPage)  //implementing pagination
+    .limit(3)                   //implementing pagination
     .forEach(book => books.push(book))
     .then(() => {
         res.status(200).json(books)
@@ -34,6 +41,8 @@ app.get('/books', (req, res) => {
 
 app.get('/books/:id', (req, res) => {
     const id = req.params.id
+
+
     if(ObjectId.isValid(req.params.id)){
         db.collection('books')
             .findOne({_id: ObjectId(id)})
@@ -72,6 +81,23 @@ app.delete('/books/:id', (req, res) => {
             })
             .catch((error) => {
                 res.status(500).json({ error: "Couldn't delete the document from database"});
+            })
+    } else {
+        res.status(500).json({error: "Document is not valid"})
+    }
+})
+
+app.patch('/books/:id', (req, res) => {
+    const updateData = req.body;
+    console.log(updateData)
+    if(ObjectId.isValid(req.params.id)){
+        db.collection('books')
+            .updateOne({_id: ObjectId(req.params.id)}, {$set: updateData})
+            .then((result) => {
+                res.status(201).json(result)
+            })
+            .catch(err => {
+                res.status(500).json({error: "Couldn't update the document"})
             })
     } else {
         res.status(500).json({error: "Document is not valid"})
