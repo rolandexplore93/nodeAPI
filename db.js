@@ -3,7 +3,10 @@ let dbConnection
 
 module.exports = {
     connectToDb: (cb) => {   // The work of this function is to connect to the database
-        const url = "mongodb://127.0.0.1:27017"
+        // const url = "mongodb://127.0.0.1:27017"
+
+        //using mongodb Atlas
+        const url = "mongodb+srv://RollyJS:1018RollyJStest@nodemongotuts.39zvg9e.mongodb.net/?retryWrites=true&w=majority"
 
         MongoClient.connect(url)
             .then((client) => {
