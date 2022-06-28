@@ -18,9 +18,15 @@ const add = utils.scores(5, 2, 3)
 console.log(validator.isEmail('roland@gmail.com'));
 console.log(validator.isEmpty('R'));
 console.log(validator.isURL('https://tetrawrite.com'));
-console.log(chalk.red.inverse('Hello world'))
 
 // chalk package - Terminal string styling done right
+console.log(chalk.red.inverse('Hello world'))
+
+console.log(process.argv)
+// const command = process.argv[2];
+// if (command === 'add'){console.log("Adding my name")}
+// else if (command === 'remove'){console.log("Removing my name")}
+
 
 
 
