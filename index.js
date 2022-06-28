@@ -36,7 +36,23 @@ console.log(chalk.red.inverse('Hello world'))
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler: function(){console.log("Adding a new note to the file")}
+    //add title and body to the command using builder key
+    builder: {
+        title: {
+            describe: 'note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'note content body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function(argv){
+        console.log("Title: ", argv.title);
+        console.log("Content: ", argv.body);
+    }
 })
 
 // create a 'remove' command using yargs.command
@@ -60,4 +76,5 @@ yargs.command({
     handler: function(){console.log("reading notes...")}
 })
 
-console.log(yargs.argv)
+// console.log(yargs.argv)
+yargs.parse()
