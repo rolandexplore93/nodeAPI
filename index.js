@@ -3,6 +3,7 @@ const utils = require('./utils');
 const getNotes =  require('./notes');
 const validator = require('validator');
 const chalk = require('chalk');
+const yargs = require('yargs')
 
 
 
@@ -22,11 +23,41 @@ console.log(validator.isURL('https://tetrawrite.com'));
 // chalk package - Terminal string styling done right
 console.log(chalk.red.inverse('Hello world'))
 
-console.log(process.argv)
+// console.log(process.argv)
 // const command = process.argv[2];
 // if (command === 'add'){console.log("Adding my name")}
 // else if (command === 'remove'){console.log("Removing my name")}
 
+// yargs library
+// console.log(yargs.argv.title)
+// console.log(yargs.command)
 
+// create a 'add' command using yargs.command
+yargs.command({
+    command: 'add',
+    describe: 'Add a new note',
+    handler: function(){console.log("Adding a new note to the file")}
+})
 
+// create a 'remove' command using yargs.command
+yargs.command({
+    command: 'remove',
+    describe: 'remove a new note',
+    handler: function(){console.log("Removing a note from the file")}
+})
 
+// create a 'list' command using yargs.command
+yargs.command({
+    command: 'list',
+    describe: 'listing all files',
+    handler: function(){console.log("Listing all files in user records")}
+})
+
+// create a 'read' command using yargs.command
+yargs.command({
+    command: 'read',
+    describe: 'read a note',
+    handler: function(){console.log("reading notes...")}
+})
+
+console.log(yargs.argv)
