@@ -1,9 +1,10 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 const getNotes = function(){
     return "Your notes";
 }
-
+//  add notes
 const addNote = function(title, body){
     const notes = loadNotes();
     const filterDuplicateNotes = notes.filter(function removeDuplicate(note){
@@ -39,7 +40,30 @@ const loadNotes = function(){
     }
 }
 
+// remove notes
+const removeNote = function(title){
+    const retreiveNotes = loadNotes();
+    const noteToKeep = retreiveNotes.filter(function(retreiveNote){
+        return retreiveNote.title !== title;
+    });
+
+    if (retreiveNotes.length > noteToKeep.length){
+        saveNotes(noteToKeep);
+        console.log(chalk.green.inverse('Note removed!'))
+        console.log(`Data with title name ${title} has been deleted from user database`)
+    } else {
+        console.log(chalk.red.inverse('No note found!'))
+    }
+}
+
+
+
+
+
+
+
 module.exports = {
     getNotes,
-    addNote
+    addNote,
+    removeNote
 }

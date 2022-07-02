@@ -1,5 +1,5 @@
 const fs = require('fs');
-const utils = require('./utils');
+// const utils = require('./utils');
 const notes =  require('./notes');
 const validator = require('validator');
 const chalk = require('chalk');
@@ -11,7 +11,7 @@ const yargs = require('yargs')
 // fs.appendFileSync('notes.txt', ' I live in Nigeria')
 
 // const message = getNotes()
-const add = utils.scores(5, 2, 3)
+// const add = utils.scores(5, 2, 3)
 // console.log(add);
 // console.log(message);
 
@@ -58,7 +58,16 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'remove a new note',
-    handler: function(){console.log("Removing a note from the file")}
+    builder: {
+        title: {
+            describe: "remove a note with this title description",
+            demandOption: true,
+            type: "string"
+        }
+    },
+    handler: function(argv){
+        const removeData = notes.removeNote(argv.title)
+    }
 })
 
 // create a 'list' command using yargs.command
