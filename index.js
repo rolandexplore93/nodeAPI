@@ -49,7 +49,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function(argv){
+    handler(argv){
         const saveUserInput = notes.addNote(argv.title, argv.body)
     }
 })
@@ -65,7 +65,7 @@ yargs.command({
             type: "string"
         }
     },
-    handler: function(argv){
+    handler(argv){
         const removeData = notes.removeNote(argv.title)
     }
 })
@@ -74,14 +74,14 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'listing all files',
-    handler: function(){console.log("Listing all files in user records")}
+    handler(){console.log("Listing all files in user records")}
 })
 
 // create a 'read' command using yargs.command
 yargs.command({
     command: 'read',
     describe: 'read a note',
-    handler: function(){console.log("reading notes...")}
+    handler(){console.log("reading notes...")}
 })
 // console.log(yargs.argv)
 yargs.parse()
