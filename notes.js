@@ -19,6 +19,8 @@ const addNote = (title, body) => {
         return note.title === title;
     });
 
+    debugger
+
     if (!duplicateNotes){
         notes.push({
             title: title,
