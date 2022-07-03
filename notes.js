@@ -5,15 +5,21 @@ const getNotes = () => {
     return "Your notes";
 }
 getNotes()
+
 //  add notes
 const addNote = (title, body) => {
     const notes = loadNotes();
-    const filterDuplicateNotes = notes.filter(note => {
+    // const filterDuplicateNotes = notes.filter(note => {
+        //     return note.title === title
+        // });
+        
+        // using find() method over filter()
+        const duplicateNotes = notes.find((note) => {
         console.log(`dataTitle: ${note.title} | userTitleEntry: ${title}`);
-        return note.title === title
+        return note.title === title;
     });
 
-    if (filterDuplicateNotes.length === 0){
+    if (!duplicateNotes){
         notes.push({
             title: title,
             body: body
@@ -21,7 +27,7 @@ const addNote = (title, body) => {
         saveNotes(notes);
         console.log("Note added")
     } else {
-        console.log("Adding note not successful. Note title already exist!")
+        console.log("Adding note not successful. Title already exist!")
     }
 }
 
@@ -57,13 +63,36 @@ const removeNote = (title) => {
 }
 
 
+// list notes
+const listNotes = (title) => {
+    console.log(chalk.green.inverse("Your notes"));
+    const retreiveNotes = loadNotes();
+    return retreiveNotes.forEach(note => {
+        console.log(note.title)
+    })
+}
 
+// read notes
+const readNote = (title) => {
+    const retreiveNotes = loadNotes();
+    const noteToRead = retreiveNotes.find((note) => {
+        console.log(`dataTitle: ${note.title} | userTitleEntry: ${title}`);
+        return note.title === title
+    });
+    
+    if (noteToRead){
+        console.log(`Title: ${chalk.green.inverse(noteToRead.title)} \nBody: ${noteToRead.body}`)
+    } else {
+        console.log(`${chalk.red.inverse("Oops! This note doesn't exist")}`)
+    }
 
-
+}
 
 
 module.exports = {
     getNotes,
     addNote,
-    removeNote
+    removeNote,
+    listNotes,
+    readNote
 }

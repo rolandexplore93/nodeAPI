@@ -74,14 +74,25 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'listing all files',
-    handler(){console.log("Listing all files in user records")}
+    handler(){
+        const listNotes = notes.listNotes()
+    }
 })
 
 // create a 'read' command using yargs.command
 yargs.command({
     command: 'read',
     describe: 'read a note',
-    handler(){console.log("reading notes...")}
+    builder: {
+        title: {
+            describe: "read a note with title that matches user title input",
+            demandOption: true,
+            type: "string"
+        }
+    },
+    handler(argv){
+        notes.readNote(argv.title);
+    }
 })
 // console.log(yargs.argv)
 yargs.parse()
